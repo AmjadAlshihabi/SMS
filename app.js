@@ -21,10 +21,7 @@ mongoose.connect('mongodb+srv://alshihabi_amjad:'
     }
 );
 
-// mongoose.connect('mongodb://localhost:SMS', {
-//         useNewUrlParser: true,
-//         useUnifiedTopology: true
-// })
+// mongoose.Promise = global.Promise;
 
 mongoose.connection.on('connected', () => { 
     console.log('DB connected');
