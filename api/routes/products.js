@@ -53,7 +53,7 @@ router.post('/', (req, res, next) => {
             console.log(result);
             res.status(201).json({
                 message: "Created product successfully",
-                createProduct: {
+                createdProduct: {
                     category: result.category,
                     weight: result.weight,
                     price: result.price,
@@ -132,19 +132,24 @@ router.delete('/:productId', (req, res, next) => {
     const id = req.params.productId;
     Product.deleteOne({ _id: id })
         .exec()
-        .then(result=>{
-            res.status(200).json({
-                message: 'product deleted successfully',
-                request: {
-                    type: 'POST',
-                    url: 'http://localhost:3000/products',
-                    body: {
-                        category: 'String',
-                        weight: 'Number',
-                        price: 'Number'
+        .then(result => {
+            if (result.deletedCount == 0) {
+                res.status(404).json({message: 'No valid entry for provided ID'})
+            } else {
+                console.log(result);
+                res.status(200).json({
+                    message: 'product deleted successfully',
+                    request: {
+                        type: 'POST',
+                        url: 'http://localhost:3000/products',
+                        body: {
+                            category: 'String',
+                            weight: 'Number',
+                            price: 'Number'
+                        }
                     }
-                }
-            })
+                })
+            }
         })
         .catch(err => {
             console.log(err);
