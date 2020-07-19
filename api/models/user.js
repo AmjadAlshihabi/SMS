@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
 const userSchema = mongoose.Schema({
-    // _id: mongoose.Schema.Types.ObjectId,
-    firstname: {
+    _id: mongoose.Schema.Types.ObjectId,
+    firstname: { 
         type: String,
         required: true
     },
@@ -12,7 +12,8 @@ const userSchema = mongoose.Schema({
     },
     position: {
         type: String,
-        required: true
+        required: true,
+        enum: ['Owner', 'Admin', 'Accountant', 'Worker']
     },
     address: {
         street: String,
@@ -23,8 +24,7 @@ const userSchema = mongoose.Schema({
     },
     phonenumber: {
         type: String,
-        required: true,
-        unique: true
+        required: true
     },
     email: {
         type: String,
